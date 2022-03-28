@@ -8,22 +8,22 @@ export interface Search {
 
 export interface UserResult {
   id: number;
-  username: string;
-  avatar: string;
+  login: string;
+  avatarURL: string;
   fullName: string;
-  description: string;
-  localization: string;
-  numberOfFollowers: number;
-  numberOfFollowing: number;
-  starred: any;
+  bio: string;
+  location: string;
+  followers: number;
+  following: number;
+  starred?: any;
 }
 export interface RepositoryResult {
   id: number;
   name: string;
-  starred: number;
+  stargazersCount: number;
   description: string;
   programingLanguage: string;
-  whenUpdated: string;
+  updatedAt: string;
   issues?: string;
 }
 
