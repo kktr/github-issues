@@ -29,9 +29,7 @@ export interface RepositoryResult {
 
 type Result = UserResult | RepositoryResult;
 
-export interface Results {
-  results: Result[];
-}
+type Results = Result[];
 
 const result1: UserResult = {
   id: 1,
@@ -78,4 +76,4 @@ const result4: RepositoryResult = {
   issues: '7 issues needed help',
 };
 
-const mockResults: Results = [result1, result2, result3, result4];
+export const mockResults: Results = [result1, result2, result3, result4];
