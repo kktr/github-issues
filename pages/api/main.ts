@@ -1,5 +1,6 @@
 import axios from 'axios';
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { GeneralUserList } from '../interfaces/importListUsers';
 import { UserGithub } from '../interfaces/ImportUser';
 import { mockResults } from '../interfaces/search';
 
@@ -12,7 +13,7 @@ export default async function handler(
   res: NextApiResponse 
 ) {
     try {
-        const data = await getExternalAPIGitHub();
+        const data = await getExternalUserAPIGitHub();
         console.log(data);
         res.status(200).json({data});
     } catch (err:any) {
@@ -20,12 +21,14 @@ export default async function handler(
     }
 }
 
-export async function getExternalAPIGitHub() {
-  // Fetch data from external API
-    const res = await axios.get('https://api.github.com/users/octocat');
-    const user: UserGithub = res.data;
+export async function getExternalUserAPIGitHub() {
 
-
-  // Pass data to the page via props
-  return { user }
-}
+  try {
+    const res = await axios.get('https://api.github.com/search/users',{params: {q: 'john',}});
+    const data: GeneralUserList = res.data;
+    
+    return {data };
+  } catch (error) {
+    console.error(error);
+  }
+  }
