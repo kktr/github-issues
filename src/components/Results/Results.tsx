@@ -14,12 +14,16 @@ interface ResultsProp {
 }
 
 function Results({ results }: ResultsProp) {
+  const isResultUser = (value: Result) => {
+    return 'avatarURL' in value;
+  };
+
   const displayResults = (dataResults: SearchResults) => {
-    dataResults.map((result: Result) => {
-      result.avatarURL ? (
-        <ResultUser submitResult={result} />
+    return dataResults.map((result: Result) => {
+      return isResultUser(result) ? (
+        <ResultUser result={result as UserResult} />
       ) : (
-        <ResultRepository submitResult={result} />
+        <ResultRepository result={result as RepositoryResult} />
       );
     });
   };
