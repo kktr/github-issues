@@ -9,5 +9,9 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse 
 ) {
-    res.status(200).json({mockResults });
+    try {
+        res.status(200).json({ mockResults });
+    } catch (err:any) {
+        res.status(500).json({ message: err.message })
+    }
 }
