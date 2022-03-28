@@ -1,10 +1,10 @@
 export interface GeneralRepoList {
     totalCount:        number;
     incompleteResults: boolean;
-    items:             Item[];
+    items:            GeneralRepo[];
 }
 
-export interface Item {
+export interface GeneralRepo {
     id:               number;
     nodeID:           string;
     name:             string;
