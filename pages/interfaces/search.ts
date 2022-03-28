@@ -27,9 +27,9 @@ export interface RepositoryResult {
   issues?: string;
 }
 
-type Result = UserResult | RepositoryResult;
+export type Result = UserResult | RepositoryResult;
 
-type Results = Result[];
+export type Results = Result[];
 
 const result1: UserResult = {
   id: 1,
