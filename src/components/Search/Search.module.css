@@ -2,31 +2,34 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding-right: 1.25rem;
-  padding-top: 1.09375rem;
-  height: 4.6875rem;
   width: 100vw;
+  height: 4.6875rem;
+  margin-bottom: 2.125;
+  padding-top: 1.0937rem;
+  padding-right: 1.25rem;
   background-color: var(--primary-dark-color);
-  margin-bottom: 2.125
 }
 
 .logo {
-  margin-left: 1.25rem;
   width: 2.375rem;
   height: 2.375rem;
+  margin-left: 1.25rem;
 }
 
 .form {
-  color: var(--primary-light-color)
+  color: var(--primary-light-color);
 }
 
 .input {
-  background-color: var(--tertiary-text-color);
-  border: 1px solid var(--primary-light-color);
   width: 15.125rem;
   height: 2.3125rem;
+  padding: 1.063rem;
+  border: 1px solid var(--primary-light-color);
   border-radius: 5px;
+  background-color: var(--tertiary-text-color);
   color: inherit;
   font-weight: 600;
+  font-weight: var(--bold-font-weight);
+  font-size: 1rem;
+  font-family: var(--additional-font-family);
 }
-
