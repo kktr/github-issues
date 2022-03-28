@@ -2,7 +2,7 @@ export interface UserGithub {
     login:             string;
     id:                number;
     nodeID:            string;
-    avatarURL:         string;
+    avatar_url:         string;
     gravatarID:        string;
     url:               string;
     htmlURL:           string;
