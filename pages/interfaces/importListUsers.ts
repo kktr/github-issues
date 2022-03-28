@@ -1,10 +1,10 @@
 export interface GeneralUserList {
-    totalCount?:        number;
-    incompleteResults?: boolean;
-    items?:             Item[];
+    totalCount:        number;
+    incompleteResults: boolean;
+    items:             GeneralUser[];
 }
 
-export interface Item {
+export interface GeneralUser {
     login:             string;
     id:                number;
     nodeID:            string;
