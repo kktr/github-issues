@@ -1,4 +1,5 @@
 import axios from 'axios';
+import moment from 'moment';
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { GeneralRepo, GeneralRepoList } from '../interfaces/importListRepo';
 import { GeneralUserList,GeneralUser } from '../interfaces/importListUsers';
@@ -24,8 +25,8 @@ export default async function handler(
       if (!Users || !Repositories) { throw new Error('User or Repo not found') };
         const data= MappingOutPutData(FullUsers, FullRepos);
         // console.log(Users);
-      
-        res.status(200).json({data});
+      const lengthOfResponse =data.length;
+        res.status(200).json({data, lengthOfResponse});
     } catch (err:any) {
         res.status(500).json({ message: err.message })
     }
@@ -96,7 +97,7 @@ export  function MappingOutPutData(Users:UserGithub[],Repository:RepositoryFromG
       const result:Result = {
       id: user.id,
       login: user.login,
-      avatarURL: user.avatarURL,
+      avatarURL: user.avatar_url,
       fullName: user.name,
       bio: user.bio,
       location: user.location,
@@ -107,23 +108,29 @@ export  function MappingOutPutData(Users:UserGithub[],Repository:RepositoryFromG
     data.push(result);
   });
   Repository.forEach(repo => {
+    let lastMonth: string;
+if (!repo.updatedAt) {lastMonth=differentMonth(repo.createdAt)}
+    
+    lastMonth =differentMonth(repo.updatedAt);
     const result: Result = {
       id: repo.id,
       name: repo.name,
       description: repo.description,
-      programingLanguage: repo.language||' ',
+      programingLanguage: repo.language || ' ',
       stargazersCount: repo.stargazersCount,
-     updatedAt:'',
-      
+     updatedAt: lastMonth,
+
     }
-      
+    
     data.push(result);
   });
      
-
-
-
   return data;
 }
    
   
+function differentMonth(updatedAt: Date) {
+ return moment(updatedAt).fromNow();
+};
+
+
