@@ -1,17 +1,26 @@
-.result {
 
+.result {
+  display: flex;
+  flex-direction: row;
+  padding-top: 1.25rem;
+  padding-bottom: 1rem;
+  border-top-style: solid;
+  border-top-color: #C4C4C4;
+  border-top-width: 1px;
 }
 
-.container {
 
+.container {
+  margin-right: 1.1rem;
 }
 
 .avatar {
-
+  border-radius: 50%
 }
 
 .fullName {
-
+  color: #166CD7;
+  font-weight: 600;
 }
 
 .avatarURL {
@@ -19,11 +28,15 @@
 }
 
 .login {
-
+  font-size: #6F7781;
+  font-weight: 500;
+  margin-bottom: 1.25rem;
 }
 
 .bio {
-
+font-weight: 500;
+color: #6F7781;
+margin-bottom: 0.5rem;
 }
 
 .location {
