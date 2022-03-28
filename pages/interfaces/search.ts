@@ -76,4 +76,4 @@ const result4: RepositoryResult = {
   issues: '7 issues needed help',
 };
 
-const mockResults: Results = [result1, result2, result3, result4];
+export const mockResults: Results = [result1, result2, result3, result4];
