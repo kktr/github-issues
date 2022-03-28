@@ -7,6 +7,7 @@
   height: 4.6875rem;
   width: 100vw;
   background-color: #24292F;
+  margin-bottom: 2.125
 }
 
 .logo {
@@ -16,7 +17,7 @@
 }
 
 .form {
-  margin-right: 1.25rem;
+  color: #D0D7DE
 }
 
 .input {
@@ -25,5 +26,7 @@
   width: 15.125rem;
   height: 2.3125rem;
   border-radius: 5px;
+  color: inherit;
+  font-weight: 600;
 }
 
