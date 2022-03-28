@@ -22,7 +22,7 @@ export default async function handler(
       const FullRepos = await GetMoreRepositoryData(Repositories);
 
       if (!Users || !Repositories) { throw new Error('User or Repo not found') };
-        const data= sendBasicData(FullUsers, FullRepos);
+        const data= MappingOutPutData(FullUsers, FullRepos);
         // console.log(Users);
       
         res.status(200).json({data});
@@ -34,7 +34,8 @@ export default async function handler(
 export async function getExternalUsersFromGitHub() {
 
   try {
-    const res = await axios.get('https://api.github.com/search/users', { params: { q: 'john', per_page:5} });
+
+    const res = await axios.get('https://api.github.com/search/users', { params: { q: 'john', per_page:5, auth:process.env.gitToken} });
     const data: GeneralUserList = res.data;
     console.log(data);
     return  data as GeneralUserList;
@@ -88,7 +89,7 @@ export async function  GetMoreRepositoryData(BasicsRepository:GeneralRepoList)  
   }
 }
   
-export  function sendBasicData(Users:UserGithub[],Repository:RepositoryFromGithub[]):Result[] {
+export  function MappingOutPutData(Users:UserGithub[],Repository:RepositoryFromGithub[]):Result[] {
   const data: Result[] = [];
  
   Users.forEach(user => { 
