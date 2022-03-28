@@ -21,7 +21,7 @@
 
 .input {
   background-color: #24292F;
-  border-color: #D0D7DE;
+  border: 1px solid #D0D7DE;
   width: 15.125rem;
   height: 2.3125rem;
   border-radius: 5px;
