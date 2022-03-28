@@ -28,7 +28,12 @@ function Results({ results }: ResultsProp) {
     });
   };
 
-  return <div className={styles.results}>{displayResults(mockResults)}</div>;
+  return (
+    <div className={styles.container}>
+      <div className={styles.summary}>{`${mockResults.length} results`}</div>
+      <div className={styles.results}>{displayResults(mockResults)}</div>
+    </div>
+  );
 }
 
 export default Results;
