@@ -1,9 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
 html,
 body {
+  height: 100%;
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Roboto', sans-serif;
+  font-weight: var(--medium-font-weight);
 }
 
 a {
@@ -11,6 +24,24 @@ a {
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
+:root {
+  
+  --main-text-color: #166CD7;
+  --secondary-text-color: #6F7781;
+  --tertiary-text-color: #24292F;
+  --primary-grey-color: #C4C4C4;
+  --primary-light-color: #D0D7DE;
+  --primary-dark-color: #24292F;
+  --medium-font-weight: 500;
+  --bold-font-weight: 600;
+  --additional-font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+
+  /* --main-border-radius: 25px;
+  --secondary-border-radius: 15px; */
+}
+
+body {
+  width: 100%;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
 }

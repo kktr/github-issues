@@ -24,7 +24,8 @@ function Search() {
             type="string"
             required
             value={enteredSearch}
-            // onChange={setEnteredSearch}
+            // value=" Search"
+            onChange={setEnteredSearch}
             className={styles.input}
           />
         </div>
