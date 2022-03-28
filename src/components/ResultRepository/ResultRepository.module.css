@@ -1,26 +1,66 @@
 .result {
+  display: flex;
+  flex-direction: row;
+  padding-top: 1.25rem;
+  padding-bottom: 1rem;
+  border-top-style: solid;
+  border-top-color: #C4C4C4;
+  border-top-width: 1px;
+}
 
+.flexrow {
+  display: flex;
+  flex-direction: row;
+}
+
+.icon {
+  margin-right: 0.65625rem;
+  line-height: 1.5rem;
+  /* margin-bottom:  */
 }
 
 .name {
-
+  color:  #166CD7;
+  /* --main-text-color */
+  margin-bottom: 0.3125rem;
+  font-weight: 500;
 }
 
 .description {
-
+color: #6F7781;
+margin-bottom: 0.9375rem;
 }
 
-.stargazers {
+.additional {
+  display: flex;
+  flex-direction: row;
+  margin-right: 0.875rem;
+  color: #6F7781;
+  font-size: 0.75rem;
+}
 
+.center{
+  display: flex;
+  flex-direction: row;
+}
+
+.star {
+  margin-right: 0.2275rem;
+}
+
+
+.stargazers {
+  margin-right: 0.875rem;
+  display: flex;
 }
 
 .programingLanguage {
-
+  margin-right: 0.875rem;
 }
 
 .updated {
-
+  margin-right: 0.875rem;
 }
 .issues {
-  
+  margin-right: 0.875rem;
 }
