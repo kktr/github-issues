@@ -1,15 +1,30 @@
 import styles from './ResultRepository.module.css';
-export Result from './'
+import { RepositoryResult } from '../../../pages/interfaces/search';
 
-function ResultRepository({ result }) {
-  const resultRepository = result;
+interface ResultRepositoryProps {
+  result: RepositoryResult;
+}
 
+function ResultRepository({ result }: ResultRepositoryProps) {
   return (
     <div className={styles.result}>
-      <div className={styles.reponame}></div>
-      <div className={styles.reponame}></div>
-      <div></div>
-      <div></div>
+      <div className={styles.name}>{`${result.name}`}</div>
+
+      {result.description && (
+        <div className={styles.description}>{`${result.description}`}</div>
+      )}
+
+      <div className={styles.additional}>
+        <div className={styles.stargazers}>{`${result.stargazersCount}`}</div>
+
+        {result.programingLanguage && (
+          <div
+            className={styles.programingLanguage}
+          >{`${result.programingLanguage}`}</div>
+        )}
+
+        <div className={styles.updated}>{`Update on ${result.updatedAt}`}</div>
+      </div>
     </div>
   );
 }
