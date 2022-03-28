@@ -14,14 +14,16 @@ export default async function handler(
   res: NextApiResponse 
 ) {
     try {
-      const Users = await getExternalUsersFromGitHub();
-      const FullUsers = await GetMoreUserData(Users);
-      // const Repositories = await getExternalRepositoriesAPIGitHub();
+      // const Users = await getExternalUsersFromGitHub();
+      // const FullUsers = await GetMoreUserData(Users);
+     
+      const Repositories = await getExternalRepositoriesAPIGitHub();
+      const FullRepos = await GetMoreRepositoryData(Repositories);
 
       // if (!Users || !Repositories) { throw new Error('User or Repo not found') };
         // const data= sendBasicData(Users, Repositories);
         // console.log(Users);
-        res.status(200).json({FullUsers});
+        res.status(200).json({FullRepos});
     } catch (err:any) {
         res.status(500).json({ message: err.message })
     }
@@ -43,7 +45,7 @@ export async function getExternalUsersFromGitHub() {
 export async function getExternalRepositoriesAPIGitHub():Promise<GeneralRepoList> {
 
   try {
-    const res = await axios.get('https://api.github.com/search/repositories',{params: {q: 'math',}});
+    const res = await axios.get('https://api.github.com/search/repositories',{params: {q: 'math', per_page:5}});
     const data: GeneralRepoList = res.data;
     
     return data as GeneralRepoList;
@@ -68,7 +70,21 @@ export async function  GetMoreUserData(BasicsUsers:GeneralUserList)  {
   }
 }
 
-
+export async function  GetMoreRepositoryData(BasicsRepository:GeneralRepoList)  {
+  const repos: UserGithub[] = []
+  try {
+    for (let repo of BasicsRepository.items) {
+      const res = await axios.get('https://api.github.com/repos/' + repo.owner.login + '/' + repo.name);
+      const data: UserGithub = res.data;
+      console.log(data);
+      repos.push(data);
+    } 
+    return repos;
+  } catch (error: any) {
+    console.error(error);
+    throw new Error(error);
+  }
+}
   
 // export  function sendBasicData(Users:GeneralUserList,Repository:GeneralRepoList):Result[] {
 //   const data: Result[] = [];
