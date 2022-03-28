@@ -5,7 +5,7 @@
   padding-top: 1.25rem;
   padding-bottom: 1rem;
   border-top-style: solid;
-  border-top-color: #C4C4C4;
+  border-top-color: var(--primary-grey-color);
   border-top-width: 1px;
 }
 
@@ -19,8 +19,10 @@
 }
 
 .fullName {
-  color: #166CD7;
-  font-weight: 600;
+  color: var(--main-text-color);
+  font-family: var(--additional-font-family);
+  font-weight: var(--bold-font-weight);
+  line-height: 1.5rem;
 }
 
 .avatarURL {
@@ -28,17 +30,22 @@
 }
 
 .login {
-  font-size: #6F7781;
-  font-weight: 500;
+  color: var(--secondary-text-color);
+  font-weight: var(--medium-font-weight);
   margin-bottom: 1.25rem;
+  line-height: 1.5rem;
 }
 
 .bio {
-font-weight: 500;
-color: #6F7781;
+font-weight: var(--medium-font-weight);
+color: var(--tertiary-text-color);
 margin-bottom: 0.5rem;
+font-size: 0.875rem;
+line-height: 1.125rem;
 }
 
 .location {
-  
+  font-size: 0.75rem;
+  color: var(--secondary-text-color);
+  line-height: 1rem;
 }

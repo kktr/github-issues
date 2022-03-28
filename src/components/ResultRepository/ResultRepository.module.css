@@ -4,7 +4,7 @@
   padding-top: 1.25rem;
   padding-bottom: 1rem;
   border-top-style: solid;
-  border-top-color: #C4C4C4;
+  border-top-color: var(--primary-grey-color);
   border-top-width: 1px;
 }
 
@@ -16,32 +16,34 @@
 .icon {
   margin-right: 0.65625rem;
   line-height: 1.5rem;
-  /* margin-bottom:  */
 }
 
 .name {
-  color:  #166CD7;
-  /* --main-text-color */
+  color:  var(--main-text-color);
   margin-bottom: 0.3125rem;
-  font-weight: 500;
+  font-weight: var(--medium-font-weight);
+  line-height: 1.5rem;
 }
 
 .description {
-color: #6F7781;
+color: var(--secondary-text-color);
 margin-bottom: 0.9375rem;
+line-height: 1.5rem;
 }
 
 .additional {
   display: flex;
   flex-direction: row;
   margin-right: 0.875rem;
-  color: #6F7781;
+  color: var(--secondary-text-color);
   font-size: 0.75rem;
+  line-height: 1rem;
 }
 
 .center{
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .star {
@@ -52,6 +54,8 @@ margin-bottom: 0.9375rem;
 .stargazers {
   margin-right: 0.875rem;
   display: flex;
+  font-family: var(--additional-font-family);
+  font-weight: var(--bold-font-weight);
 }
 
 .programingLanguage {

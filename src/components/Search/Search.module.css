@@ -6,7 +6,7 @@
   padding-top: 1.09375rem;
   height: 4.6875rem;
   width: 100vw;
-  background-color: #24292F;
+  background-color: var(--primary-dark-color);
   margin-bottom: 2.125
 }
 
@@ -17,12 +17,12 @@
 }
 
 .form {
-  color: #D0D7DE
+  color: var(--primary-light-color)
 }
 
 .input {
-  background-color: #24292F;
-  border: 1px solid #D0D7DE;
+  background-color: var(--tertiary-text-color);
+  border: 1px solid var(--primary-light-color);
   width: 15.125rem;
   height: 2.3125rem;
   border-radius: 5px;
