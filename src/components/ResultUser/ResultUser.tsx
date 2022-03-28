@@ -14,18 +14,21 @@ function ResultUser({ result }: ResultUserProps) {
           className={styles.avatar}
           alt="github avatar"
           src={result.avatarURL}
-          width="50px"
-          height="50px"
+          width="20px"
+          height="20px"
         />
-        <div className={styles.fullName}>{`${result.fullName}`}</div>
       </div>
-      <div className={styles.login}>{`${result.login}`}</div>
 
-      {result.bio && <div className={styles.bio}>{`${result.bio}`}</div>}
+      <div>
+        <div className={styles.fullName}>{`${result.fullName}`}</div>
+        <div className={styles.login}>{`${result.login}`}</div>
 
-      {result.location && (
-        <div className={styles.location}>{`${result.location}`}</div>
-      )}
+        {result.bio && <div className={styles.bio}>{`${result.bio}`}</div>}
+
+        {result.location && (
+          <div className={styles.location}>{`${result.location}`}</div>
+        )}
+      </div>
     </div>
   );
 }
