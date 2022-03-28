@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-right: 1.25rem;
+  padding-top: 1.09375rem;
+  height: 4.6875rem;
+  width: 100vw;
+  background-color: #24292F;
+}
+
+.logo {
+  margin-left: 1.25rem;
+  width: 2.375rem;
+  height: 2.375rem;
+}
+
+.form {
+  margin-right: 1.25rem;
+}
+
+.input {
+  background-color: #24292F;
+  border-color: #D0D7DE;
+  width: 15.125rem;
+  height: 2.3125rem;
+  border-radius: 5px;
+}
+
