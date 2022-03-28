@@ -17,19 +17,16 @@ body {
 }
 
 :root {
-  --gradient: linear-gradient(135deg, #8fee8f 10%, #00ffa3 100%);
-  --bg-color: #344b37;
-  --bg-color--card: #223123;
-  --main-text-color: #fff;
-  --main-text-size: 1.125rem;
-  --main-border-radius: 25px;
-  --secondary-border-radius: 15px;
+  --bg-color--header: #24292F;
+  --main-text-color: #166CD7;
+  --secondary-text-color: #6F7781;
+  --tertiary-text-color: #24292F;
+  /* --main-border-radius: 25px;
+  --secondary-border-radius: 15px; */
 }
 
 body {
   width: 100%;
   margin: 0;
-  background-color: var(--bg-color);
-  color: var(--main-text-color);
   font-family: 'Roboto', sans-serif;
 }
