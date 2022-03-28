@@ -14,6 +14,8 @@ function ResultUser({ result }: ResultUserProps) {
           className={styles.avatar}
           alt="github avatar"
           src={result.avatarURL}
+          width="50px"
+          height="50px"
         />
         <div className={styles.fullName}>{`${result.fullName}`}</div>
       </div>
