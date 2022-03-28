@@ -4,6 +4,7 @@ import {
   UserResult,
   RepositoryResult,
   mockResults,
+  Result,
 } from '../../../pages/interfaces/search';
 import ResultUser from '../ResultUser/ResultUser';
 import ResultRepository from '../ResultRepository/ResultRepository';
@@ -13,16 +14,14 @@ interface ResultsProp {
 }
 
 function Results({ results }: ResultsProp) {
-  const displayResults = (
-    dataResults: SearchResults
-  ): UserResult | RepositoryResult => {
-    for (const result of dataResults) {
+  const displayResults = (dataResults: SearchResults) => {
+    dataResults.map((result: Result) => {
       result.avatarURL ? (
         <ResultUser submitResult={result} />
       ) : (
         <ResultRepository submitResult={result} />
       );
-    }
+    });
   };
 
   return <div className={styles.results}>{displayResults(mockResults)}</div>;
