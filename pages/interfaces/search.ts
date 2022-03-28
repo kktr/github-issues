@@ -11,8 +11,8 @@ export interface UserResult {
   login: string;
   avatarURL: string;
   fullName: string;
-  bio: string;
-  location: string;
+  bio?: string;
+  location?: string;
   followers: number;
   following: number;
   starred?: any;
@@ -21,10 +21,11 @@ export interface RepositoryResult {
   id: number;
   name: string;
   stargazersCount: number;
-  description: string;
-  programingLanguage: string;
+  description?: string;
+  programingLanguage?: string;
   updatedAt: string;
   issues?: string;
+  license?: string;
 }
 
 export type Result = UserResult | RepositoryResult;
@@ -74,6 +75,7 @@ const result4: RepositoryResult = {
   programingLanguage: 'typescript',
   updatedAt: '22 aug 2016',
   issues: '7 issues needed help',
+  license: 'MIT',
 };
 
 export const mockResults: Results = [result1, result2, result3, result4];
