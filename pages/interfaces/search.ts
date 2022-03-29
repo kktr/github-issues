@@ -24,7 +24,7 @@ export interface RepositoryResult {
   description?: string;
   programingLanguage?: string;
   updatedAt: string;
-  issues?: string;
+  issues?: number;
   license?: string;
 }
 
@@ -76,7 +76,7 @@ const result4: RepositoryResult = {
   description: 'lorem motorem potworem',
   programingLanguage: 'HCL',
   updatedAt: '11 Feb 2020',
-  issues: '7 issues needed help',
+  issues: 7,
 };
 
 export const mockResults: Results = [result1, result2, result3, result4];

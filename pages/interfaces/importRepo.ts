@@ -57,7 +57,7 @@ export interface RepositoryFromGithub {
     watchersCount:      number;
     size:               number;
     defaultBranch:      string;
-    openIssuesCount:    number;
+    open_issues_count:    number;
     isTemplate:         boolean;
     topics:             string[];
     hasIssues:          boolean;
@@ -68,9 +68,9 @@ export interface RepositoryFromGithub {
     archived:           boolean;
     disabled:           boolean;
     visibility:         string;
-    pushedAt:           Date;
-    createdAt:          Date;
-    updatedAt:          Date;
+    pushed_at:           Date;
+    created_at:          Date;
+    updated_at:          Date;
     permissions:        Permissions;
     templateRepository: null;
 }

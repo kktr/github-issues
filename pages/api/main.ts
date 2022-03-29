@@ -49,7 +49,7 @@ export async function getExternalUsersFromGitHub() {
 export async function getExternalRepositoriesAPIGitHub():Promise<GeneralRepoList> {
 
   try {
-    const res = await axios.get('https://api.github.com/search/repositories',{params: {q: 'math', per_page:5}});
+    const res = await axios.get('https://api.github.com/search/repositories', { params: { q: 'math', per_page: 5, auth: process.env.gitToken } });
     const data: GeneralRepoList = res.data;
     
     return data as GeneralRepoList;
@@ -62,7 +62,7 @@ export async function  GetMoreUserData(BasicsUsers:GeneralUserList)  {
   const users: UserGithub[] = []
   try {
     for (let user of BasicsUsers.items) {
-      const res = await axios.get('https://api.github.com/users/' + user.login);
+      const res = await axios.get('https://api.github.com/users/' + user.login, { params: { auth: process.env.gitToken } });
       const data: UserGithub = res.data;
       console.log(data);
       users.push(data);
@@ -78,7 +78,7 @@ export async function  GetMoreRepositoryData(BasicsRepository:GeneralRepoList)  
   const repos: RepositoryFromGithub[] = []
   try {
     for (let repo of BasicsRepository.items) {
-      const res = await axios.get('https://api.github.com/repos/' + repo.owner.login + '/' + repo.name);
+      const res = await axios.get('https://api.github.com/repos/' + repo.owner.login + '/' + repo.name, { params: { auth: process.env.gitToken } });
       const data: RepositoryFromGithub = res.data;
       console.log(data);
       repos.push(data);
@@ -109,16 +109,17 @@ export  function MappingOutPutData(Users:UserGithub[],Repository:RepositoryFromG
   });
   Repository.forEach(repo => {
     let lastMonth: string;
-if (!repo.updatedAt) {lastMonth=differentMonth(repo.createdAt)}
+if (!repo.updated_at) {lastMonth=differentMonth(repo.created_at)}
     
-    lastMonth =differentMonth(repo.updatedAt);
+    lastMonth =differentMonth(repo.updated_at);
     const result: Result = {
       id: repo.id,
       name: repo.name,
       description: repo.description,
       programingLanguage: repo.language || ' ',
       stargazersCount: repo.stargazersCount,
-     updatedAt: lastMonth,
+      updatedAt: lastMonth,
+     issues: repo.open_issues_count,
 
     }
     
@@ -128,7 +129,13 @@ if (!repo.updatedAt) {lastMonth=differentMonth(repo.createdAt)}
   return data;
 }
    
-  
+function geGitHubStarred(user: string) {
+  return  `https://api.github.com/users/${user}/starred`;
+  length;
+}
+
+
+
 function differentMonth(updatedAt: Date) {
  return moment(updatedAt).fromNow();
 };
