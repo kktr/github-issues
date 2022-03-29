@@ -19,10 +19,7 @@ export default async function handler(
  
    let MappedUserData=  await UserData(search) ;
     let MappedRepoData= await RepositoryData(search);
-    
-    // if (MappedUserData.length === 0) throw new Error('No user found');
-    // if (MappedRepoData.length === 0) throw new Error('No repo found');
-    
+
     let combineData = MappedUserData.concat(MappedRepoData);
     
         res.status(200).json(combineData);
