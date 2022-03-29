@@ -2,6 +2,14 @@ export interface Search {
   search: string;
 }
 
+export interface ISearchResponse {
+  items: Results;
+}
+
+export interface ISearchMethod {
+  search(request: Search): Promise<ISearchResponse>;
+}
+
 // export interface Result {
 //   id: number;
 // }
