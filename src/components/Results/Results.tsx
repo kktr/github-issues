@@ -18,8 +18,9 @@ function Results({ parentToChild }: ResultsProp) {
     return 'avatarURL' in value;
   };
 
-  const displayResults = (dataResults: IResults) => {
-    return dataResults.map((result: Result) => {
+  const displayResults = async (dataResults: IResults) => {
+    const data = await dataResults;
+    return data.map((result: Result) => {
       return isResultUser(result) ? (
         <ResultUser result={result as UserResult} />
       ) : (
@@ -38,7 +39,7 @@ function Results({ parentToChild }: ResultsProp) {
     <div className={styles.container}>
       <div className={styles.summary}>{`${mockResults.length} results`}</div>
 
-      <div className={styles.results}>{displayResults(mockResults)}</div>
+      <div className={styles.results}>{displayResults(parentToChild)}</div>
 
       <div>
         <div className={styles.buttons}>
