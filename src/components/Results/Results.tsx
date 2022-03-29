@@ -19,8 +19,8 @@ function Results({ parentToChild }: ResultsProp) {
   };
 
   const displayResults = async (dataResults: IResults) => {
-    const data = await dataResults;
-    return data.map((result: Result) => {
+    // const data = await dataResults;
+    return dataResults.map((result: Result) => {
       return isResultUser(result) ? (
         <ResultUser result={result as UserResult} />
       ) : (
