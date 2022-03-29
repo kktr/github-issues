@@ -1,6 +1,6 @@
 import styles from './Results.module.css';
 import {
-  Results as SearchResults,
+  Results as IResults,
   UserResult,
   RepositoryResult,
   mockResults,
@@ -10,15 +10,15 @@ import ResultUser from '../ResultUser/ResultUser';
 import ResultRepository from '../ResultRepository/ResultRepository';
 
 interface ResultsProp {
-  results: SearchResults;
+  parentToChild: IResults;
 }
 
-function Results({ results }: ResultsProp) {
+function Results({ parentToChild }: ResultsProp) {
   const isResultUser = (value: Result) => {
     return 'avatarURL' in value;
   };
 
-  const displayResults = (dataResults: SearchResults) => {
+  const displayResults = (dataResults: IResults) => {
     return dataResults.map((result: Result) => {
       return isResultUser(result) ? (
         <ResultUser result={result as UserResult} />

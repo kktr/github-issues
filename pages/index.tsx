@@ -5,7 +5,20 @@ import styles from '../styles/Home.module.css';
 import Results from '../src/components/Results/Results';
 import Search from '../src/components/Search/Search';
 
+import {
+  SearchMethod,
+  Results as IResults,
+  UserResult,
+} from './interfaces/search';
+import { useState } from 'react';
+
 const Home: NextPage = () => {
+  const [data, setData] = useState<IResults>();
+
+  const childToParent = (data: IResults): void => {
+    setData(data);
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -14,9 +27,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Search />
+      <Search childToParent={childToParent} />
 
-      <Results />
+      <Results parentToChild={data as IResults} />
 
       {/* <main className={styles.main}>
         <h1 className={styles.title}>

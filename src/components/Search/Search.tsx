@@ -1,15 +1,31 @@
 import React, { ChangeEvent, useState, useEffect } from 'react';
 import Image from 'next/image';
+import {
+  SearchMethod,
+  Result,
+  Results as IResults,
+} from '../../../pages/interfaces/search';
 
 import styles from './Search.module.css';
 import gitHub from '../../../public/github-logo.png';
 
-function Search() {
+interface SearchProps {
+  childToParent: (data: IResults) => void;
+}
+
+function Search({ childToParent }: SearchProps) {
   const [enteredSearch, setEnteredSearch] = useState<string>('');
+  const [data, setData] = useState<IResults>();
 
   const searchChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEnteredSearch(event.target.value);
   };
+
+  useEffect(() => {
+    new SearchMethod().search({ search: enteredSearch }).then((response) => {
+      setData(response);
+    });
+  }, [enteredSearch]);
 
   return (
     <header className={styles.header}>
