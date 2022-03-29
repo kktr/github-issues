@@ -11,3 +11,36 @@
   margin-bottom: 1.25rem;
   font-size: 1.3125rem;
 }
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.button {
+  margin: 5.125rem 0 4.563rem;
+  padding: 1rem;
+  color: var(--primary-grey-color);
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  cursor: pointer;
+}
+
+.button:hover,
+.button:focus,
+.button:active {
+  color: var(--main-text-color);
+}
+
+.button:first-child {
+  margin-right: 4.5rem;
+}
+
+.arrow:last-child {
+  margin-left: 0.375rem;
+}
+
+.arrow:first-child {
+  margin-right: 0.375rem;
+}

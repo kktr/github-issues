@@ -28,10 +28,39 @@ function Results({ results }: ResultsProp) {
     });
   };
 
+  const pageChangeHHandler = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
+    const target = e.target as HTMLAnchorElement;
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.summary}>{`${mockResults.length} results`}</div>
+
       <div className={styles.results}>{displayResults(mockResults)}</div>
+
+      <div>
+        <div className={styles.buttons}>
+          <a
+            id="previous"
+            tabIndex={2}
+            className={styles.button}
+            onClick={(e) => pageChangeHHandler(e)}
+          >
+            <span className={styles.arrow}>&lt;</span>Previous
+          </a>
+
+          <a
+            id="next"
+            tabIndex={3}
+            className={styles.button}
+            onClick={(e) => pageChangeHHandler(e)}
+          >
+            Next<span className={styles.arrow}>&gt;</span>
+          </a>
+        </div>
+      </div>
     </div>
   );
 }
