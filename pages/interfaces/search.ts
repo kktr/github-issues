@@ -2,6 +2,35 @@ export interface Search {
   search: string;
 }
 
+// export interface ISearchResponse {
+//   items: Results;
+// }
+
+export interface ISearchMethod {
+  search(request: Search): Promise<Results>;
+}
+
+export class SearchMethod implements ISearchMethod {
+  async search(request: Search): Promise<Results> {
+    const response = await fetch(
+      '/api/main?' +
+        new URLSearchParams({
+          query: request.search || '',
+        })
+    );
+
+    return await response.json();
+  }
+}
+
+// export class MockSearchMethod implements ISearchMethod {
+//   async search(request: Search): Promise<ISearchResponse> {
+//     return {};
+//   }
+
+//   private getMocUser() {}
+// }
+
 // export interface Result {
 //   id: number;
 // }
