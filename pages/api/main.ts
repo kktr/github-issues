@@ -15,6 +15,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse 
 ) {
+  const data = req.query;
+  console.log(data);
     try {
       const Users = await getExternalUsersFromGitHub();
       const FullUsers = await GetMoreUserData(Users);
