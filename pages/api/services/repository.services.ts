@@ -72,6 +72,8 @@ function differentMonth(updatedAt: Date) {
 
 export async function RepositoryData(query: string):Promise<Result[]> {
     const Repositories = await getExternalRepositoriesAPIGitHub(query);
+        if (Object.keys(Repositories).length === 0) { return []; }
+
     const FullRepos = await GetMoreRepositoryData(Repositories);
    return  MappingRepositoryOutPutData(FullRepos);
     

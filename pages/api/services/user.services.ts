@@ -66,7 +66,8 @@ async function getGitHubStarred(user: string) {
 }
 
 export async function UserData(query:string): Promise<Result[]> {
-         const Users = await getExternalUsersFromGitHub(query);
+    const Users = await getExternalUsersFromGitHub(query);
+    if (Object.keys(Users).length === 0) { return []; }
       const FullUsers = await GetMoreUserData(Users);
     return  MappingUserOutPutData(FullUsers);
  
