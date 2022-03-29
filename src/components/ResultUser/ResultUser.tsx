@@ -8,7 +8,7 @@ interface ResultUserProps {
 
 function ResultUser({ result }: ResultUserProps) {
   return (
-    <div className={styles.result}>
+    <div className={styles.result} key={result.id}>
       <div className={styles.container}>
         <Image
           className={styles.avatar}

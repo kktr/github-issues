@@ -3,9 +3,7 @@
   flex-direction: row;
   padding-top: 1.25rem;
   padding-bottom: 1rem;
-  border-top-style: solid;
-  border-top-color: #C4C4C4;
-  border-top-width: 1px;
+  border-top: 1px solid var(--primary-grey-color);
 }
 
 .flexrow {
@@ -14,44 +12,47 @@
 }
 
 .icon {
-  margin-right: 0.65625rem;
+  margin-right: 0.6562rem;
   line-height: 1.5rem;
-  /* margin-bottom:  */
 }
 
 .name {
-  color:  #166CD7;
-  /* --main-text-color */
   margin-bottom: 0.3125rem;
-  font-weight: 500;
+  color: var(--main-text-color);
+  font-weight: var(--medium-font-weight);
+  line-height: 1.5rem;
 }
 
 .description {
-color: #6F7781;
-margin-bottom: 0.9375rem;
+  margin-bottom: 0.9375rem;
+  color: var(--secondary-text-color);
+  line-height: 1.5rem;
 }
 
 .additional {
   display: flex;
   flex-direction: row;
   margin-right: 0.875rem;
-  color: #6F7781;
+  color: var(--secondary-text-color);
   font-size: 0.75rem;
+  line-height: 1rem;
 }
 
-.center{
+.center {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .star {
   margin-right: 0.2275rem;
 }
 
-
 .stargazers {
-  margin-right: 0.875rem;
   display: flex;
+  margin-right: 0.875rem;
+  font-weight: var(--bold-font-weight);
+  font-family: var(--additional-font-family);
 }
 
 .programingLanguage {
@@ -61,6 +62,7 @@ margin-bottom: 0.9375rem;
 .updated {
   margin-right: 0.875rem;
 }
+
 .issues {
   margin-right: 0.875rem;
 }
