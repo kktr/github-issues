@@ -10,6 +10,15 @@ export interface ISearchMethod {
   search(request: Search): Promise<ISearchResponse>;
 }
 
+class SearchMethod implements ISearchMethod {
+  async search(request: Search): Promise<ISearchResponse> {
+    const response = await fetch('/api/main');
+    const data = await response.json();
+    return data;
+    throw new Error('Method not implemented.');
+  }
+}
+
 // export interface Result {
 //   id: number;
 // }
