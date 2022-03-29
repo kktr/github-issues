@@ -19,19 +19,19 @@ export default async function handler(
  const search= req.query.search as string; ;
   try {
     if (typeof search !== 'string') { res.status(200).json({}); };
-    if (search.length>2) throw new Error('Search string too short');
+    if (search.length<2) throw new Error('Search string too short');
     
       const Users = await getExternalUsersFromGitHub(search);
       const FullUsers = await GetMoreUserData(Users);
-     
+      const MappedUserData = await MappingUserOutPutData(FullUsers);
+    
       const Repositories = await getExternalRepositoriesAPIGitHub(search);
-      const FullRepos = await GetMoreRepositoryData(Repositories);
-    // const  data=await geGitHubStarred('kktr');
-      if (!Users || !Repositories) { throw new Error('User or Repo not found') };
-        const data= MappingOutPutData(FullUsers, FullRepos);
-      //   // console.log(Users);
-      const lengthOfResponse =data.length;
-        res.status(200).json(data);
+    const FullRepos = await GetMoreRepositoryData(Repositories);
+    const MappedRepoData = await MappingRepositoryOutPutData(FullRepos);
+    
+    let combineData = MappedUserData.concat(MappedRepoData);
+    
+        res.status(200).json(combineData);
     } catch (err:any) {
         res.status(500).json({ message: err.message })
     }
@@ -41,8 +41,8 @@ export async function getExternalUsersFromGitHub(query: string ) {
 
   try {
 
-    const res = await axios.get('https://api.github.com/search/users', { 
-      headers: { Authorization: `token ${process.env.gitToken}` },  params: { q: query, per_page: 5, } });
+    const res = await axios.get('https://api.github.com/search/users', { params: { q: query, per_page: 5, } 
+     , headers: { Authorization: `token ${process.env.gitToken}` }  });
     const data: GeneralUserList = res.data;
     // console.log(data);
     return  data as GeneralUserList;
@@ -97,7 +97,7 @@ export async function  GetMoreRepositoryData(BasicsRepository:GeneralRepoList)  
   }
 }
   
-export  function MappingOutPutData(Users:UserGithub[],Repository:RepositoryFromGithub[]):Result[] {
+export  function MappingUserOutPutData(Users:UserGithub[]):Result[] {
   const data: Result[] = [];
  
   Users.forEach(user => { 
@@ -110,11 +110,18 @@ export  function MappingOutPutData(Users:UserGithub[],Repository:RepositoryFromG
       location: user.location,
       followers: user.followers,
       following: user.following,
-      starred: user.starredURL,
+      // starred: user.starredURL,
     };
     data.push(result);
   });
-  Repository.forEach(repo => {
+ 
+     
+  return data;
+}
+
+export function MappingRepositoryOutPutData(Repository: RepositoryFromGithub[]): Result[] {
+    const data: Result[] = [];
+   Repository.forEach(repo => {
     let lastMonth: string;
 if (!repo.updated_at) {lastMonth=differentMonth(repo.created_at)}
     
@@ -123,7 +130,7 @@ if (!repo.updated_at) {lastMonth=differentMonth(repo.created_at)}
       id: repo.id,
       name: repo.name,
       description: repo.description,
-      programingLanguage: repo.language || ' ',
+      programingLanguage: repo.language ? repo.language : '',
       stargazersCount: repo.stargazersCount,
       updatedAt: lastMonth,
      issues: repo.open_issues_count,
@@ -131,11 +138,11 @@ if (!repo.updated_at) {lastMonth=differentMonth(repo.created_at)}
     }
     
     data.push(result);
-  });
-     
+   });
   return data;
 }
-   
+
+
 async function geGitHubStarred(user: string) {
   const response = await axios.get(`https://api.github.com/users/${user}/starred`,  {
       headers: { Authorization: `token ${process.env.gitToken}` },  params: {  per_page:100, } });
