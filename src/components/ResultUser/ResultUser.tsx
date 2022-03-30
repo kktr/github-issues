@@ -1,14 +1,19 @@
 import styles from './ResultUser.module.css';
 import { UserResult } from '../../../pages/interfaces/search';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 interface ResultUserProps {
   result: UserResult;
 }
 
 function ResultUser({ result }: ResultUserProps) {
+  const router = useRouter();
+  const { id } = router.query;
+
   return (
-    <div className={styles.result} key={result.id}>
+    <div className={styles.result}>
       <div className={styles.container}>
         <Image
           className={styles.avatar}
@@ -20,7 +25,16 @@ function ResultUser({ result }: ResultUserProps) {
       </div>
 
       <div>
-        <div className={styles.fullName}>{`${result.fullName}`}</div>
+        <Link
+          href={{
+            pathname: `/users`,
+            query: {
+              id: result.id,
+            },
+          }}
+        >
+          <a className={styles.fullName}>{`${result.fullName}`}</a>
+        </Link>
         <div className={styles.login}>{`${result.login}`}</div>
 
         {result.bio && <div className={styles.bio}>{`${result.bio}`}</div>}
