@@ -18,15 +18,20 @@ function Results({ parentToChild }: ResultsProp) {
     return 'avatarURL' in value;
   };
 
-  const displayResults = async (dataResults: IResults) => {
-    const data = await dataResults;
-    return data.map((result: Result) => {
-      return isResultUser(result) ? (
-        <ResultUser result={result as UserResult} />
-      ) : (
-        <ResultRepository result={result as RepositoryResult} />
-      );
-    });
+  const displayResults = (dataResults: IResults) => {
+    return (
+      dataResults &&
+      dataResults.map((result: Result) => {
+        return isResultUser(result) ? (
+          <ResultUser result={result as UserResult} key={result.id} />
+        ) : (
+          <ResultRepository
+            result={result as RepositoryResult}
+            key={result.id}
+          />
+        );
+      })
+    );
   };
 
   const pageChangeHHandler = (
@@ -37,7 +42,11 @@ function Results({ parentToChild }: ResultsProp) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.summary}>{`${mockResults.length} results`}</div>
+      {parentToChild && (
+        <div
+          className={styles.summary}
+        >{`${parentToChild.length} results`}</div>
+      )}
 
       <div className={styles.results}>{displayResults(parentToChild)}</div>
 

@@ -7,7 +7,7 @@ interface ResultRepositoryProps {
 
 function ResultRepository({ result }: ResultRepositoryProps) {
   return (
-    <div className={styles.result} key={result.id}>
+    <div className={styles.result}>
       <div className={styles.icon}>
         <svg
           width="16"

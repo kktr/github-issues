@@ -7,19 +7,35 @@ export interface Search {
 // }
 
 export interface ISearchMethod {
-  search(request: Search): Promise<Results>;
+  search(search?: Search): Promise<Results>;
 }
 
 export class SearchMethod implements ISearchMethod {
   async search(request: Search): Promise<Results> {
+    console.log('SearchMethod - request', request);
+    // try {
     const response = await fetch(
-      '/api/main?' +
+      'http://localhost:3000/api/main?' +
         new URLSearchParams({
-          query: request.search || '',
+          search: request.search || '',
         })
     );
+    const data = await response.json();
+    console.log('SearchMethod data', data);
 
-    return await response.json();
+    // return await response.json();
+    return data;
+    // } catch (err) {
+    //   console.error(err);
+    // }
+  }
+}
+
+export class MockSearchMethod implements ISearchMethod {
+  async search(request: Search): Promise<Results> {
+    console.log('MockSearchMethod - request', request);
+
+    return mockResults;
   }
 }
 
@@ -28,7 +44,6 @@ export class SearchMethod implements ISearchMethod {
 //     return {};
 //   }
 
-//   private getMocUser() {}
 // }
 
 // export interface Result {
@@ -59,7 +74,7 @@ export interface RepositoryResult {
 
 export type Result = UserResult | RepositoryResult;
 
-export type Results = Result[];
+export type Results = Array<Result>;
 
 const result1: UserResult = {
   id: 1,

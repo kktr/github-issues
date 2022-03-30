@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState, useEffect } from 'react';
 import Image from 'next/image';
 import {
   SearchMethod,
+  MockSearchMethod,
   Result,
   Results as IResults,
 } from '../../../pages/interfaces/search';
@@ -22,10 +23,19 @@ function Search({ childToParent }: SearchProps) {
   };
 
   useEffect(() => {
+    if (enteredSearch.length < 2) return;
+
     new SearchMethod().search({ search: enteredSearch }).then((response) => {
+      console.log('response', response);
+
       setData(response);
+      data && childToParent(data);
     });
-  }, [enteredSearch]);
+
+    // new SearchMethod().search({ search: enteredSearch }).then((response) => {
+    //   console.log('SearchMethod - response in Results', response);
+    // });
+  }, [data, enteredSearch]);
 
   return (
     <header className={styles.header}>
