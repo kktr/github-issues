@@ -9,23 +9,23 @@ import { UserData } from './services/user.services';
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse 
+  res: NextApiResponse
 ) {
- const search= req.query.search as string; ;
+  const search = req.query.search as string;;
   try {
     if (typeof search !== 'string') { res.status(200).json({}); };
-    if (search.length<2) throw new Error('Search string too short');
-    
- 
-   let MappedUserData=  await UserData(search) ;
-    let MappedRepoData= await RepositoryData(search);
+    if (search.length < 2) throw new Error('Search string too short');
+
+
+    let MappedUserData = await UserData(search);
+    let MappedRepoData = await RepositoryData(search);
 
     let combineData = MappedUserData.concat(MappedRepoData);
-    
-        res.status(200).json(combineData);
-    } catch (err:any) {
-        res.status(500).json({ message: err.message })
-    }
+
+    res.status(200).json(combineData);
+  } catch (err: any) {
+    res.status(500).json({ message: err.message })
+  }
 }
 
 
