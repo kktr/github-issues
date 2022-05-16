@@ -4,34 +4,45 @@ import { GeneralRepoList } from "../../interfaces/importListRepo";
 import { RepositoryFromGithub } from "../../interfaces/importRepo";
 import { Result } from "../../interfaces/search";
 
-export async function getExternalRepositoriesAPIGitHub(query: string): Promise<GeneralRepoList> {
+export async function getExternalRepositoriesAPIGitHub(
+	query: string
+): Promise<GeneralRepoList> {
+	try {
+		const res = await axios.get(<string>process.env.RepoUrl, {
+			headers: { Authorization: `token ${process.env.gitToken}` },
+			params: { q: query, per_page: 5 },
+		});
+		const data: GeneralRepoList = res.data;
 
-  try {
-    const res = await axios.get('https://api.github.com/search/repositories', {
-      headers: { Authorization: `token ${process.env.gitToken}` }, params: { q: query, per_page: 5, }
-    });
-    const data: GeneralRepoList = res.data;
-
-    return data as GeneralRepoList;
-  } catch (error: any) {
-    console.error(error);
-    throw new Error(error);
-  }
+		return data as GeneralRepoList;
+	} catch (error: any) {
+		console.error(error);
+		throw new Error(error);
+	}
 }
 
-
-
-
 export async function GetMoreRepositoryData(BasicsRepository: GeneralRepoList) {
-  let promises = [];
-  let repo: RepositoryFromGithub[] = [];
-  promises = BasicsRepository.items.map((repo) => { return axios.get('https://api.github.com/repos/' + repo.owner.login + '/' + repo.name, { headers: { Authorization: `token ${process.env.gitToken}` } }); })
+	let promises = [];
+	let repo: RepositoryFromGithub[] = [];
+	promises = BasicsRepository.items.map((repo) => {
+		return axios.get(
+			<string>process.env.UserRepoUrl + repo.owner.login + "/" + repo.name,
+			{ headers: { Authorization: `token ${process.env.gitToken}` } }
+		);
+	});
 
-  await Promise.all(promises).then((response) => {
-    repo = response.map((res) => { return res.data });
-  }).catch(error => { console.error(error); throw new Error(error); });
-  console.log('response', repo);
-  return repo;
+	await Promise.all(promises)
+		.then((response) => {
+			repo = response.map((res) => {
+				return res.data;
+			});
+		})
+		.catch((error) => {
+			console.error(error);
+			throw new Error(error);
+		});
+	console.log("response", repo);
+	return repo;
 }
 
 
