@@ -1,6 +1,5 @@
 
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { Result } from '../interfaces/search';
+import type { NextApiRequest, NextApiResponse } from "next";
 import { RepositoryData } from './services/repository.services';
 import { UserData } from './services/user.services';
 
