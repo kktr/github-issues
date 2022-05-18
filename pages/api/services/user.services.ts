@@ -24,10 +24,9 @@ export async function getExternalUsersFromGitHub(query?: string) {
 
 export async function GetMoreUserData(BasicsUsers: IUser[]) {
 	let promises = [];
-	let user: UserGithub[] = [];
+	let users: UserGithub[] = [];
 
 	promises = BasicsUsers.map((user) => {
-
 		return axios.get(process.env.UserDetailsUrl + `${user.login}`, {
 			headers: { Authorization: `token ${process.env.gitToken}` },
 		});
@@ -35,7 +34,7 @@ export async function GetMoreUserData(BasicsUsers: IUser[]) {
 
 	await Promise.all(promises)
 		.then((response) => {
-			user = response.map((res) => {
+			users = response.map((res) => {
 				return res.data;
 			});
 		})
@@ -43,8 +42,7 @@ export async function GetMoreUserData(BasicsUsers: IUser[]) {
 			console.error("promiseAll", error);
 			throw new Error(error);
 		});
-
-	return user;
+	return users;
 }
 
 export async function GetMoreUserFromSearchData(BasicsUsers: IUserSearchList) {
