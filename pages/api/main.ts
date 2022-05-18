@@ -1,6 +1,7 @@
 
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Result } from "../interfaces/search";
+import { RepositoryData } from "./services/repository.services";
 import { UserData } from "./services/user.services";
 
 export default async function handler(
@@ -19,5 +20,6 @@ async function getGithubData(req: NextApiRequest): Promise<Result[]> {
 	const search = req.query.search as string;
 	if (search?.length < 2) throw new Error("Search string too short");
 	let MappedUserData = await UserData(search);
-	return MappedUserData;
+	let MappedRepoData = await RepositoryData(search);
+	return [...MappedUserData, ...MappedRepoData];
 }

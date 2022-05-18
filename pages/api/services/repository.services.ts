@@ -1,36 +1,41 @@
 import axios from "axios";
 import moment from "moment";
-import { GeneralRepoList } from "../../interfaces/importListRepo";
+import { GeneralRepo } from "../../interfaces/importListRepo";
 import { RepositoryFromGithub } from "../../interfaces/importRepo";
 import { Result } from "../../interfaces/search";
 
 export async function getExternalRepositoriesAPIGitHub(
 	query: string
-): Promise<GeneralRepoList> {
+) {
 	try {
-		const res = await axios.get(<string>process.env.RepoUrl, {
-			headers: { Authorization: `token ${process.env.gitToken}` },
-			params: { q: query, per_page: 5 },
-		});
-		const data: GeneralRepoList = res.data;
-
-		return data as GeneralRepoList;
+		console.log(`RepoUrl ${process.env.RepoUrl}`);
+		console.log(`RepoUrl ${process.env.RecentReposUrl}`);
+		const res = query
+			? await axios.get(`${process.env.RepoUrl}`, {
+					headers: { Authorization: `token ${process.env.gitToken}` },
+					params: { q: query, per_page: 5 },
+			  })
+			: await axios.get(`${process.env.RecentReposUrl}`, {
+					headers: { Authorization: `token ${process.env.gitToken}` },
+			  });
+		return query? GetMoreRepositoryDetails(res.data.items) : GetMoreRepositoryDetails(res.data);
 	} catch (error: any) {
 		console.error(error);
-		throw new Error(error);
+		throw new Error(error.message);
 	}
 }
 
-export async function GetMoreRepositoryData(BasicsRepository: GeneralRepoList) {
+export async function GetMoreRepositoryDetails(
+	BasicsRepository: RepositoryFromGithub[] | GeneralRepo[]) {
 	let promises = [];
 	let repo: RepositoryFromGithub[] = [];
-	promises = BasicsRepository.items.map((repo) => {
+	promises = BasicsRepository.map((repo) => {
+		console.log(repo.owner.login, repo.name, process.env.UserRepoUrl);
 		return axios.get(
-			<string>process.env.UserRepoUrl + repo.owner.login + "/" + repo.name,
+			<string>process.env.UserRepoUrl + `${ repo.owner.login }/${ repo.name }`,
 			{ headers: { Authorization: `token ${process.env.gitToken}` } }
 		);
 	});
-
 	await Promise.all(promises)
 		.then((response) => {
 			repo = response.map((res) => {
@@ -41,49 +46,40 @@ export async function GetMoreRepositoryData(BasicsRepository: GeneralRepoList) {
 			console.error(error);
 			throw new Error(error);
 		});
-	console.log("response", repo);
 	return repo;
 }
 
+export function MappingRepositoryOutPutData(
+	Repository: RepositoryFromGithub[]| GeneralRepo[]
+): Result[] {
+	const data: Result[] = [];
+	Repository.forEach((repo) => {
+		
+		const result: Result = {
+			id: repo.id,
+			name: repo.name,
+			description: repo.description,
+			programingLanguage: repo.language ? repo.language : "",
+			stargazersCount: repo.stargazersCount,
+			updatedAt: repo.updated_at.toString(),
+			issues: repo.open_issues_count,
+		};
 
-export function MappingRepositoryOutPutData(Repository: RepositoryFromGithub[]): Result[] {
-  const data: Result[] = [];
-  Repository.forEach(repo => {
-    let lastMonth: string;
-    if (!repo.updated_at) { lastMonth = differentMonth(repo.created_at) }
-
-    lastMonth = differentMonth(repo.updated_at);
-    const result: Result = {
-      id: repo.id,
-      name: repo.name,
-      description: repo.description,
-      programingLanguage: repo.language ? repo.language : '',
-      stargazersCount: repo.stargazersCount,
-      updatedAt: lastMonth,
-      issues: repo.open_issues_count,
-
-    }
-
-    data.push(result);
-  });
-  return data;
+		data.push(result);
+	});
+	return data;
 }
 
-
-
-
-
 function differentMonth(updatedAt: Date) {
-  return moment(updatedAt).fromNow();
-};
+	return moment(updatedAt).fromNow();
+}
 
-
-
-export async function RepositoryData(query: string): Promise<Result[]> {
-  const Repositories = await getExternalRepositoriesAPIGitHub(query);
-  if (Object.keys(Repositories).length === 0) { return []; }
-
-  const FullRepos = await GetMoreRepositoryData(Repositories);
-  return MappingRepositoryOutPutData(FullRepos);
-
+export async function RepositoryData(query: string) {
+	const Repositories = await getExternalRepositoriesAPIGitHub(query);
+	if (Object.keys(Repositories).length === 0) {
+		return [];
+	}
+	return MappingRepositoryOutPutData(
+		await GetMoreRepositoryDetails(Repositories)
+	);
 }
