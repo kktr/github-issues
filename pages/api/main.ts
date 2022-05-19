@@ -1,6 +1,8 @@
 
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Result } from "../interfaces/search";
+import { cors } from "./cors";
+import { runMiddleware } from "./middleware.cors";
 import { RepositoryData } from "./services/repository.services";
 import { UserData } from "./services/user.services";
 
@@ -9,6 +11,7 @@ export default async function handler(
 	res: NextApiResponse
 ) {
 	try {
+		runMiddleware(req, res, cors);
 		let combineData = await getGithubData(req);
 		return res.status(200).json(combineData);
 	} catch (err: any) {
