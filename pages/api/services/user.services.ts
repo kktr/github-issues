@@ -50,14 +50,11 @@ export async function GetMoreUserFromSearchData(BasicsUsers: IUserSearchList) {
 	let user: UserGithub[] = [];
 
 	promises = BasicsUsers.items.map((user) => {
-		// console.log(process.env.UserDetailsUrl + `${user.login}`);
-
 		return axios.get(process.env.UserDetailsUrl + `${user.login}`, {
 			headers: { Authorization: `token ${process.env.gitToken}` },
 		});
 	});
 
-	// console.log("promises", promises[0]);
 	await Promise.all(promises)
 		.then((response) => {
 			user = response.map((res) => {
