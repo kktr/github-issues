@@ -12,7 +12,7 @@ describe("Test Check", () => {
 });
 
 describe('e2e', () => {
-  test.skip('should return 200', async () => {
+  test('should return 200', async () => {
     const { req, res } = createMocks();
     await MainRoute(req, res);
     expect(res.statusCode).toBe(200);

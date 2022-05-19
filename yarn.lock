@@ -673,10 +673,10 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
-"@types/jest@^27.0.0", "@types/jest@^27.4.1":
-  "integrity" "sha512-23iPJADSmicDVrWk+HT58LMJtzLAnB2AgIzplQuq/bSrGaxCrlvRFjGbXmamnnk/mAmCdLStiGqggu28ocUyiw=="
-  "resolved" "https://registry.npmjs.org/@types/jest/-/jest-27.4.1.tgz"
-  "version" "27.4.1"
+"@types/jest@^27.0.0", "@types/jest@^27.5.1":
+  "integrity" "sha512-fUy7YRpT+rHXto1YlL+J9rs0uLGyiqVt3ZOTQR+4ROc47yNl8WLdVLgUloBRhOxP1PZvguHl44T3H0wAWxahYQ=="
+  "resolved" "https://registry.npmjs.org/@types/jest/-/jest-27.5.1.tgz"
+  "version" "27.5.1"
   dependencies:
     "jest-matcher-utils" "^27.0.0"
     "pretty-format" "^27.0.0"
@@ -4179,10 +4179,10 @@
   "resolved" "https://registry.npmjs.org/trim-newlines/-/trim-newlines-3.0.1.tgz"
   "version" "3.0.1"
 
-"ts-jest@^27.1.4":
-  "integrity" "sha512-qjkZlVPWVctAezwsOD1OPzbZ+k7zA5z3oxII4dGdZo5ggX/PL7kvwTM0pXTr10fAtbiVpJaL3bWd502zAhpgSQ=="
-  "resolved" "https://registry.npmjs.org/ts-jest/-/ts-jest-27.1.4.tgz"
-  "version" "27.1.4"
+"ts-jest@^27.1.5":
+  "integrity" "sha512-Xv6jBQPoBEvBq/5i2TeSG9tt/nqkbpcurrEG1b+2yfBrcJelOZF9Ml6dmyMh7bcW9JyFbRYpR5rxROSlBLTZHA=="
+  "resolved" "https://registry.npmjs.org/ts-jest/-/ts-jest-27.1.5.tgz"
+  "version" "27.1.5"
   dependencies:
     "bs-logger" "0.x"
     "fast-json-stable-stringify" "2.x"
