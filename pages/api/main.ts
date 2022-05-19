@@ -1,8 +1,8 @@
 
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Result } from "../interfaces/search";
-import { cors } from "./cors";
-import { runMiddleware } from "./middleware.cors";
+import { cors } from "./cors/cors";
+import { runMiddleware } from "./middleware/middleware.cors";
 import { RepositoryData } from "./services/repository.services";
 import { UserData } from "./services/user.services";
 
