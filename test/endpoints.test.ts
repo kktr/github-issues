@@ -1,20 +1,16 @@
-import MainRoute from '../pages/api/main';
-import { createMocks } from 'node-mocks-http';
+import axios from "axios";
 
 describe("Test Check", () => {
-  test("Test check", () => {
-    const n = 1;
+	test("Test check", () => {
+		const n = 1;
 
-    expect(n).toBe(1);
-
-
-  });
+		expect(n).toBe(1);
+	});
 });
 
-describe('e2e', () => {
-  test('should return 200', async () => {
-    const { req, res } = createMocks();
-    await MainRoute(req, res);
-    expect(res.statusCode).toBe(200);
-  });
+describe("e2e", () => {
+	test("should return 200", async () => {
+		const response = await axios.get("http://localhost:3000/api/main");
+		expect(response.status).toBe(200);
+	}, 30000);
 });
