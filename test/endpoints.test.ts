@@ -1,8 +1,9 @@
 import axios from "axios";
 import nock from "nock";
-import { resolve } from "path";
+import { loadNockTape } from "./loadNockTape";
 
-const url = "http://localhost:3000/api/main" || <string>process.env.MainUrl;
+const url =
+	"http://localhost:3000/api/main" || <string>process.env.MainEndpoint;
 
 describe("Test Check", () => {
 	test("Test check", () => {
@@ -22,26 +23,23 @@ describe("e2e", () => {
 		nock.enableNetConnect();
 	});
 	test("should return ok status, without search", async () => {
-		// await nock.recorder.rec({ output_objects: true, dont_print: true });
-		nock.load(resolve(__dirname, "./__tapes__/", "ResponseNoQuerySearch.json"));
+		// await recordTape();
+		loadNockTape("ResponseNoQuerySearch");
 		expect(url).toBe("http://localhost:3000/api/main");
 		const response = await axios.get(url);
 		expect(response.status).toBe(200);
-		// fs.writeFileSync(
-		// 	"./test/__tapes__/ResponseNoQuerySearch.json",
-		// 	JSON.stringify(nock.recorder.play())
-		// );
+		// saveTapeToFile("ResponseNoQuerySearch");
 	}, 30000);
+
 	test("should return ok status with query search", async () => {
-		// await nock.recorder.rec({ output_objects: true, dont_print: true });
-		nock.load(resolve(__dirname, "./__tapes__/", "ResponseQuerySearch.json"));
+		// await recordTape();
+		loadNockTape("ResponseQuerySearch");
 		const search = "test";
 		expect(url).toBe("http://localhost:3000/api/main");
 		const response = await axios.get(url + `?search=${search}`);
 		expect(response.status).toBe(200);
-		// fs.writeFileSync(
-		// 	"./test/__tapes__/ResponseQuerySearch.json",
-		// 	JSON.stringify(nock.recorder.play())
-		//
+		// saveTapeToFile("ResponseQuerySearch");
 	}, 30000);
 });
+
+
