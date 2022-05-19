@@ -4,21 +4,18 @@ import { GeneralRepo } from "../../interfaces/importListRepo";
 import { RepositoryFromGithub } from "../../interfaces/importRepo";
 import { Result } from "../../interfaces/search";
 
-export async function getExternalRepositoriesAPIGitHub(
-	query: string
-) {
+export async function getExternalRepositoriesAPIGitHub(query: string) {
 	try {
-		console.log(`RepoUrl ${process.env.RepoUrl}`);
-		console.log(`RepoUrl ${process.env.RecentReposUrl}`);
 		const res = query
 			? await axios.get(`${process.env.RepoUrl}`, {
 					headers: { Authorization: `token ${process.env.gitToken}` },
-					params: { q: query, per_page: 5 },
+					params: { q: query, per_page: 30, page: 1 },
 			  })
-			: await axios.get(`${process.env.RecentReposUrl}`, {
+			: await axios.get(`${process.env.RepoUrl}`, {
+					params: { q: "typescript", per_page: 30, page: 1 },
 					headers: { Authorization: `token ${process.env.gitToken}` },
 			  });
-		return query? GetMoreRepositoryDetails(res.data.items) : GetMoreRepositoryDetails(res.data);
+		return GetMoreRepositoryDetails(res.data.items);
 	} catch (error: any) {
 		console.error(error);
 		throw new Error(error.message);
@@ -26,13 +23,13 @@ export async function getExternalRepositoriesAPIGitHub(
 }
 
 export async function GetMoreRepositoryDetails(
-	BasicsRepository: RepositoryFromGithub[] | GeneralRepo[]) {
+	BasicsRepository: RepositoryFromGithub[] | GeneralRepo[]
+) {
 	let promises = [];
 	let repo: RepositoryFromGithub[] = [];
 	promises = BasicsRepository.map((repo) => {
-		console.log(repo.owner.login, repo.name, process.env.UserRepoUrl);
 		return axios.get(
-			<string>process.env.UserRepoUrl + `${ repo.owner.login }/${ repo.name }`,
+			<string>process.env.UserRepoUrl + `${repo.owner.login}/${repo.name}`,
 			{ headers: { Authorization: `token ${process.env.gitToken}` } }
 		);
 	});
